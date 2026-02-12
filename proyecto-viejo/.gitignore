@@ -1,0 +1,203 @@
+################################
+# MAVEN & BUILD ARTIFACTS
+################################
+target/
+build/
+dist/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+################################
+# IDE & EDITOR
+################################
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+*.iml.bak
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Eclipse / STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/nbdist/
+/nbdist/
+/.nb-gradle/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+*~
+
+################################
+# OS SPECIFIC
+################################
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+.directory
+.Xauthority
+
+################################
+# JAVA & SPRING BOOT
+################################
+
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Spring Boot
+spring-boot-devtools.properties
+application-local.properties
+application-dev.properties
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Heap dump
+*.hprof
+*.heapdump
+
+################################
+# DATABASE
+################################
+
+# MySQL
+*.sql
+!schema.sql
+!data.sql
+h2db/
+*.db
+*.sqlite
+
+# Database credentials (if using separate config files)
+db-config.properties
+database.properties
+
+################################
+# NODE & FRONTEND
+################################
+
+# Dependencies
+node_modules/
+npm-debug.log*
+npm-error.log*
+yarn-error.log*
+yarn-debug.log*
+pnpm-debug.log*
+pnpm-error.log*
+lerna-debug.log*
+
+# Build outputs
+dist/
+build/
+.nuxt/
+.next/
+out/
+
+# Package manager lockfiles (choose one based on your setup)
+# package-lock.json     # Vota contra subir este si trabajan en equipo con npm
+# yarn.lock             # Vota contra subir este si usan yarn
+# pnpm-lock.yaml        # Vota contra subir este si usan pnpm
+
+# Env files
+.env
+.env.local
+.env.*.local
+.env.production.local
+.env.test.local
+
+################################
+# PROJECT SPECIFIC
+################################
+
+# Documentation
+HELP.md
+docs/private/
+
+# Local development files
+*.tmp
+*.bak
+*.swp
+
+# Configuration backups
+*.properties.bak
+*.yml.bak
+*.yaml.bak
+
+# Temporary files
+tmp/
+temp/
+_temp/
+.temporary/
+
+# Coverage reports
+coverage/
+.coverage
+htmlcov/
+lcov-report/
+
+# IDE caches
+.cache/
+.eslintcache
+
+# OS lock files
+*.lock
+
+################################
+# SECRETS & SENSITIVE DATA
+################################
+
+# Never commit secrets!
+.env.secret
+secrets.properties
+config-prod.xml
+credentials.json
+keystore.jks
+*.pem
+*.key
+*.crt

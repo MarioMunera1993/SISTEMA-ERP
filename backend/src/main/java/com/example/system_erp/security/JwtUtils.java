@@ -9,9 +9,8 @@ import java.util.Date;
 
 @Component
 public class JwtUtils {
-    // Clave secreta para firmar el token (En producción debe ser externa y segura)
     private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long jwtExpirationMs = 86400000; // 24 horas
+    private static final long jwtExpirationMs = 86400000;
 
     public String generateToken(String username) {
         return Jwts.builder()
@@ -20,5 +19,19 @@ public class JwtUtils {
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(key)
                 .compact();
+    }
+
+    public String getUsernameFromToken(String token) {
+        return Jwts.parserBuilder().setSigningKey(key).build()
+                .parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
