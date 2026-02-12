@@ -50,6 +50,7 @@ Sistema de Gesti√≥n de Recursos Empresariales (ERP) profesional y moderno, dise√
 cd backend
 mvn clean install
 mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 ### 3. Frontend
