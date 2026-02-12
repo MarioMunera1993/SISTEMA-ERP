@@ -54,3 +54,9 @@ USE system_erp_db;
 DELETE FROM users WHERE username = 'admin';
 INSERT INTO users (username, password, full_name, email, role_id, is_active) 
 VALUES ('admin', '$2a$10$EqXU6Nid5n/YF7eXv2O7XOfbYpEXO8V/LHYy6G.G8H5U1tN8vVTu', 'Administrador Roldan', 'admin@roldan.com', 1, 1);
+
+INSERT INTO equipment_types (name) VALUES ('Láser'), ('Multifuncional'), ('Inyección');
+INSERT INTO equipment_statuses (name) VALUES ('Activo'), ('Inactivo'), ('En reparación');
+INSERT INTO branches (name, location) VALUES ('Libertad', 'Ubicación 1'), ('Amistad', 'Ubicación 2');
+
+select * from equipment_types
