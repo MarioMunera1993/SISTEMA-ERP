@@ -2,6 +2,7 @@ package com.example.system_erp.inventory.models;
 
 import com.example.system_erp.computers.models.Computer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "ram_memories")
 @Data
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class RamMemory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,8 @@ public class RamMemory {
 
     @Column(nullable = false)
     private String type; // Ejemplo: "DDR4", "DDR5"
+
+    private String speed; // Ejemplo: "3200"
 
     @Column(name = "serial_number", unique = true)
     private String serialNumber;

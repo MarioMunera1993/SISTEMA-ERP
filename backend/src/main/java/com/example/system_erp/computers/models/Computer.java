@@ -5,6 +5,7 @@ import com.example.system_erp.catalogs.models.EquipmentStatus;
 import com.example.system_erp.catalogs.models.EquipmentType;
 import com.example.system_erp.inventory.models.RamMemory;
 import com.example.system_erp.inventory.models.StorageDevice;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "computers")
 @Data
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Computer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,10 +69,10 @@ public class Computer {
     private LocalDate updateDate;
 
     // Relaciones con Componentes (Bidireccional)
-    @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RamMemory> ramMemories;
 
-    @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<StorageDevice> storageDevices;
 
     // Auditoría y Borrado Lógico

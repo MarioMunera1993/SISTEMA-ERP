@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import computerService from '../../services/computerService';
+import { useNavigate } from 'react-router-dom';
 import catalogService from '../../services/catalogService';
 import ComputerForm from './components/ComputerForm';
 import ComputerCard from './components/ComputerCard';
@@ -9,6 +10,7 @@ const ComputersView = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [selectedComputer, setSelectedComputer] = useState(null);
+    const navigate = useNavigate();
 
     // Estados para los catálogos
     const [types, setTypes] = useState([]);
@@ -75,9 +77,18 @@ const ComputersView = () => {
 
     return (
         <div className="animate-fadeIn">
-            <header className="mb-8">
-                <h1 className="text-3xl font-black text-gray-800">Módulo de Computadores</h1>
-                <p className="text-gray-500 font-medium">Gestión avanzada de equipos y componentes.</p>
+            <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 className="text-3xl font-black text-gray-800">Módulo de Computadores</h1>
+                    <p className="text-gray-500 font-medium">Gestión avanzada de equipos y componentes.</p>
+                </div>
+
+                <button
+                    onClick={() => navigate('/computers/inventory')}
+                    className="bg-slate-800 hover:bg-black text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg active:scale-95 flex items-center gap-2"
+                >
+                    📋 VER INVENTARIO DETALLADO
+                </button>
             </header>
 
             {/* Formulario */}

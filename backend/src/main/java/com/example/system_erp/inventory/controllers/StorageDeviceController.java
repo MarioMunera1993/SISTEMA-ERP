@@ -23,6 +23,25 @@ public class StorageDeviceController {
 
     @PostMapping
     public StorageDevice save(@RequestBody StorageDevice storage) {
+        if (storage.getId() != null) {
+            return storageRepository.findById(storage.getId())
+                    .map(existingStorage -> {
+                        existingStorage.setBrand(storage.getBrand());
+                        existingStorage.setModel(storage.getModel());
+                        existingStorage.setCapacity(storage.getCapacity());
+                        existingStorage.setType(storage.getType());
+                        existingStorage.setObservations(storage.getObservations());
+                        existingStorage.setSerialNumber(storage.getSerialNumber());
+                        // Si ya tiene un computador asociado y el que llega es nulo, mantenemos el
+                        // actual
+                        if (storage.getComputer() == null && existingStorage.getComputer() != null) {
+                            // No hacemos nada, conservamos existingStorage.getComputer()
+                        } else {
+                            existingStorage.setComputer(storage.getComputer());
+                        }
+                        return storageRepository.save(existingStorage);
+                    }).orElseGet(() -> storageRepository.save(storage));
+        }
         return storageRepository.save(storage);
     }
 

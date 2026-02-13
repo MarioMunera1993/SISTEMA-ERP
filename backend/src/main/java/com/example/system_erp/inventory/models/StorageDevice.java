@@ -2,6 +2,7 @@ package com.example.system_erp.inventory.models;
 
 import com.example.system_erp.computers.models.Computer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "storage_devices")
 @Data
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class StorageDevice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,9 @@ public class StorageDevice {
 
     @Column(nullable = false)
     private String type; // Ejemplo: "SSD", "HDD", "NVMe"
+
+    @Column(length = 500)
+    private String observations;
 
     @Column(name = "serial_number", unique = true)
     private String serialNumber;

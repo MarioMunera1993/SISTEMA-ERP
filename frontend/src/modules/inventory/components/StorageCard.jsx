@@ -31,6 +31,13 @@ const StorageCard = ({ storage, onEdit, onDelete }) => {
                 </div>
             </div>
 
+            {storage.observations && (
+                <div className="mt-4 p-3 bg-blue-50/50 rounded-xl border border-blue-100/50">
+                    <span className="text-blue-400 font-black uppercase text-[9px] block">Observaciones</span>
+                    <p className="text-blue-800 text-xs font-medium italic italic leading-tight">{storage.observations}</p>
+                </div>
+            )}
+
             <div className="mt-4 pt-4 border-t border-gray-50">
                 <div className="flex justify-between items-center text-sm">
                     <span className="text-gray-400 font-black uppercase text-[10px]">Serie:</span>

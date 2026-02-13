@@ -6,7 +6,8 @@ const StorageForm = ({ onSave, editingStorage, onCancel }) => {
         model: '',
         capacity: '',
         type: '',
-        serialNumber: ''
+        serialNumber: '',
+        observations: ''
     };
 
     const [formData, setFormData] = useState(initialFormState);
@@ -66,6 +67,15 @@ const StorageForm = ({ onSave, editingStorage, onCancel }) => {
                     className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 uppercase font-semibold"
                     value={formData.serialNumber}
                     onChange={(e) => setFormData({ ...formData, serialNumber: e.target.value.toUpperCase() })}
+                />
+            </div>
+
+            <div className="mt-4">
+                <textarea
+                    placeholder="Observaciones adicionales..."
+                    className="w-full p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 font-semibold h-24 resize-none"
+                    value={formData.observations}
+                    onChange={(e) => setFormData({ ...formData, observations: e.target.value })}
                 />
             </div>
 

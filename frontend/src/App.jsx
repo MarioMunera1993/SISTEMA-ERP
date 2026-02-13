@@ -7,6 +7,7 @@ import ComputersView from './modules/computers/ComputersView';
 import RamView from './modules/inventory/RamView';
 import StorageView from './modules/inventory/StorageView';
 import UserManagement from './modules/users/UserManagement';
+import ComputerInventoryTable from './modules/computers/ComputerInventoryTable';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             {/* Aquí agregaremos las otras rutas conforme las migremos */}
             <Route path="/printers" element={<PrintersView />} />
             <Route path="/computers" element={<ComputersView />} />
+            <Route path="/computers/inventory" element={<ComputerInventoryTable />} />
             <Route path="/ram" element={<RamView />} />
             <Route path="/storage" element={<StorageView />} />
             <Route path="/users" element={<UserManagement />} />

@@ -6,6 +6,7 @@ const RamForm = ({ onSave, editingRam, onCancel }) => {
         model: '',
         capacity: '',
         type: '',
+        speed: '',
         serialNumber: ''
     };
 
@@ -61,6 +62,12 @@ const RamForm = ({ onSave, editingRam, onCancel }) => {
                     <option value="DDR5">DDR5</option>
                     <option value="LPDDR4">LPDDR4</option>
                 </select>
+                <input
+                    type="text" placeholder="Velocidad (ej: 3200MHz)"
+                    className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+                    value={formData.speed}
+                    onChange={(e) => setFormData({ ...formData, speed: e.target.value })}
+                />
                 <input
                     type="text" placeholder="Nº de Serie" required
                     className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 uppercase font-semibold"

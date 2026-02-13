@@ -29,6 +29,10 @@ const RamCard = ({ ram, onEdit, onDelete }) => {
                     <span className="text-gray-400 font-black uppercase text-[9px] block">Tipo</span>
                     <span className="text-gray-800 font-black text-lg">{ram.type}</span>
                 </div>
+                <div className="bg-gray-50 p-3 rounded-xl border border-gray-100 col-span-2">
+                    <span className="text-gray-400 font-black uppercase text-[9px] block">Velocidad</span>
+                    <span className="text-gray-800 font-black text-base">{ram.speed || '---'} MHZ</span>
+                </div>
             </div>
 
             <div className="mt-4 pt-4 border-t border-gray-50">

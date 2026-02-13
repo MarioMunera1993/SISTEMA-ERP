@@ -23,6 +23,25 @@ public class RamMemoryController {
 
     @PostMapping
     public RamMemory save(@RequestBody RamMemory ram) {
+        if (ram.getId() != null) {
+            return ramRepository.findById(ram.getId())
+                    .map(existingRam -> {
+                        existingRam.setBrand(ram.getBrand());
+                        existingRam.setModel(ram.getModel());
+                        existingRam.setCapacity(ram.getCapacity());
+                        existingRam.setType(ram.getType());
+                        existingRam.setSpeed(ram.getSpeed());
+                        existingRam.setSerialNumber(ram.getSerialNumber());
+                        // Si ya tiene un computador asociado y el que llega es nulo, mantenemos el
+                        // actual
+                        if (ram.getComputer() == null && existingRam.getComputer() != null) {
+                            // No hacemos nada, conservamos existingRam.getComputer()
+                        } else {
+                            existingRam.setComputer(ram.getComputer());
+                        }
+                        return ramRepository.save(existingRam);
+                    }).orElseGet(() -> ramRepository.save(ram));
+        }
         return ramRepository.save(ram);
     }
 

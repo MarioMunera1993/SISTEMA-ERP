@@ -46,11 +46,6 @@ public class ComputerController {
 
         if (computer.getStorageDevices() != null) {
             computer.getStorageDevices().forEach(storage -> {
-                if (storage.getId() != null) {
-                    storageRepository.findById(storage.getId()).ifPresent(managedStorage -> {
-                        managedStorage.setComputer(computer);
-                    });
-                }
                 storage.setComputer(computer);
             });
         }
