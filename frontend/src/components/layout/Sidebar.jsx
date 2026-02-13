@@ -6,6 +6,8 @@ const Sidebar = () => {
         { name: 'Dashboard', path: '/dashboard', icon: '🏠' },
         { name: 'Impresoras', path: '/printers', icon: '🖨️' },
         { name: 'Computadores', path: '/computers', icon: '💻' },
+        { name: 'Memorias RAM', path: '/ram', icon: '🧠' },
+        { name: 'Discos Duros', path: '/storage', icon: '💾' },
         { name: 'Teléfonos', path: '/phones', icon: '📱' },
     ];
 
