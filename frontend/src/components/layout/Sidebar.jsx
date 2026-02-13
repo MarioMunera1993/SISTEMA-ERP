@@ -8,6 +8,7 @@ const Sidebar = () => {
         { name: 'Computadores', path: '/computers', icon: '💻' },
         { name: 'Memorias RAM', path: '/ram', icon: '🧠' },
         { name: 'Discos Duros', path: '/storage', icon: '💾' },
+        { name: 'Usuarios', path: '/users', icon: '👥' },
         { name: 'Teléfonos', path: '/phones', icon: '📱' },
     ];
 

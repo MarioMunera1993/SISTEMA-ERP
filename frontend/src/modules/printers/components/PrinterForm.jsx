@@ -12,7 +12,8 @@ const PrinterForm = ({ onSave, editingPrinter, onCancel, types, statuses, branch
         typeId: '',
         statusId: '',
         branchId: '',
-        purchaseDate: ''
+        purchaseDate: '',
+        consumable: ''
     };
 
     const [formData, setFormData] = useState(initialFormState);
@@ -58,6 +59,12 @@ const PrinterForm = ({ onSave, editingPrinter, onCancel, types, statuses, branch
                     className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 uppercase"
                     value={formData.serialNumber}
                     onChange={(e) => setFormData({ ...formData, serialNumber: e.target.value.toUpperCase() })}
+                />
+                <input
+                    type="text" placeholder="Consumible (Tóner/Tinta)"
+                    className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 uppercase"
+                    value={formData.consumable}
+                    onChange={(e) => setFormData({ ...formData, consumable: e.target.value.toUpperCase() })}
                 />
                 <input
                     type="text" placeholder="Número Interno" required

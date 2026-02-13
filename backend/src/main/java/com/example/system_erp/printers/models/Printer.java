@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Entity // Esto le dice a Java que esta clase es una tabla de base de datos
-@Table(name = "impresoras") // Le indica el nombre exacto de la tabla en MySQL
+@Table(name = "printers") // Le indica el nombre exacto de la tabla en MySQL
 @Data // Esta es la "magia" de Lombok que crea los Getters y Setters automáticamente
 
 public class Printer {
@@ -19,6 +19,8 @@ public class Printer {
 
     @Column(nullable = false)
     private String model; // modelo
+
+    private String consumable; // toner/tinta
 
     @Column(name = "printer_number", unique = true, nullable = false)
     private String printerNumber; // numeroImpresora

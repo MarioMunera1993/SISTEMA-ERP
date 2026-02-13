@@ -6,6 +6,7 @@ import PrintersView from './modules/printers/PrintersView';
 import ComputersView from './modules/computers/ComputersView';
 import RamView from './modules/inventory/RamView';
 import StorageView from './modules/inventory/StorageView';
+import UserManagement from './modules/users/UserManagement';
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/computers" element={<ComputersView />} />
             <Route path="/ram" element={<RamView />} />
             <Route path="/storage" element={<StorageView />} />
+            <Route path="/users" element={<UserManagement />} />
             <Route path="/phones" element={<div className="p-6 bg-white rounded-xl shadow">Módulo de Teléfonos (Próximamente)</div>} />
           </Route>
 

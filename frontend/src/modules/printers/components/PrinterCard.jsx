@@ -62,6 +62,10 @@ const PrinterCard = ({ printer, onEdit, onDelete, types, statuses, branches }) =
                     <span className="text-gray-600 font-semibold">{getTypeName(printer.typeId)}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm border-t border-gray-50 pt-2">
+                    <span className="text-gray-400 font-black uppercase text-[10px]">Consumible:</span>
+                    <span className="text-gray-700 font-bold uppercase">{printer.consumable || "No especificado"}</span>
+                </div>
+                <div className="flex justify-between items-center text-sm border-t border-gray-50 pt-2">
                     <span className="text-gray-400 font-black uppercase text-[10px]">Serie:</span>
                     <span className="text-gray-700 font-bold tracking-wide">{printer.serialNumber}</span>
                 </div>

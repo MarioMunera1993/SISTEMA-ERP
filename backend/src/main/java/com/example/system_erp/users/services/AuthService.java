@@ -22,15 +22,8 @@ public class AuthService {
         // 1. Buscamos al usuario
         User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        // DEBUG TEMP (Con comillas para ver espacios)
-        System.out.println("Username: [" + request.getUsername() + "]");
-        System.out.println("Password recibida (plano): [" + request.getPassword() + "]");
-        System.out.println("Hash en DB: [" + user.getPassword() + "]");
-        System.out.println("Longitud Hash en DB: " + user.getPassword().length());
-
         // 2. Verificamos la contraseña
         boolean matches = passwordEncoder.matches(request.getPassword(), user.getPassword());
-        System.out.println("¿Coinciden?: " + matches);
 
         if (!matches) {
             throw new RuntimeException("Contraseña incorrecta");
