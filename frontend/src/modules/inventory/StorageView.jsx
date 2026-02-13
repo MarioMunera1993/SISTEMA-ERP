@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import storageService from '../../services/storageService';
 import StorageForm from './components/StorageForm';
 import StorageCard from './components/StorageCard';
 
 const StorageView = () => {
+    const navigate = useNavigate();
     const [storages, setStorages] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedStorage, setSelectedStorage] = useState(null);
@@ -46,9 +48,17 @@ const StorageView = () => {
 
     return (
         <div className="animate-fadeIn">
-            <header className="mb-8">
-                <h1 className="text-3xl font-black text-gray-800 tracking-tight leading-tight">Módulo de Unidades de Almacenamiento</h1>
-                <p className="text-gray-500 font-medium text-lg">Control de stock de Discos Duros y SSDs.</p>
+            <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 className="text-3xl font-black text-gray-800 tracking-tight leading-tight">Módulo de Unidades de Almacenamiento</h1>
+                    <p className="text-gray-500 font-medium text-lg">Control de stock de Discos Duros y SSDs.</p>
+                </div>
+                <button
+                    onClick={() => navigate('/storage/inventory')}
+                    className="bg-purple-600 text-white font-black px-6 py-3 rounded-xl hover:bg-purple-700 transition-all flex items-center gap-2 shadow-lg shadow-purple-200"
+                >
+                    📋 VER INVENTARIO DETALLADO
+                </button>
             </header>
 
             <StorageForm onSave={handleSave} editingStorage={selectedStorage} onCancel={() => setSelectedStorage(null)} />

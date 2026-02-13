@@ -23,8 +23,9 @@ public class RamMemoryController {
 
     @PostMapping
     public RamMemory save(@RequestBody RamMemory ram) {
-        if (ram.getId() != null) {
-            return ramRepository.findById(ram.getId())
+        Long id = ram.getId();
+        if (id != null) {
+            return ramRepository.findById(id)
                     .map(existingRam -> {
                         existingRam.setBrand(ram.getBrand());
                         existingRam.setModel(ram.getModel());
@@ -47,6 +48,8 @@ public class RamMemoryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
+        if (id == null)
+            return ResponseEntity.badRequest().build();
         return ramRepository.findById(id)
                 .map(ram -> {
                     ram.setActive(false);

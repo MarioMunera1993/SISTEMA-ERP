@@ -23,8 +23,9 @@ public class StorageDeviceController {
 
     @PostMapping
     public StorageDevice save(@RequestBody StorageDevice storage) {
-        if (storage.getId() != null) {
-            return storageRepository.findById(storage.getId())
+        Long id = storage.getId();
+        if (id != null) {
+            return storageRepository.findById(id)
                     .map(existingStorage -> {
                         existingStorage.setBrand(storage.getBrand());
                         existingStorage.setModel(storage.getModel());
@@ -47,6 +48,8 @@ public class StorageDeviceController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
+        if (id == null)
+            return ResponseEntity.badRequest().build();
         return storageRepository.findById(id)
                 .map(storage -> {
                     storage.setActive(false);

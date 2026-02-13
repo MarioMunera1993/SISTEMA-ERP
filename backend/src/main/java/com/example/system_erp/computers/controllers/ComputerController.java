@@ -16,12 +16,6 @@ public class ComputerController {
     @Autowired
     private ComputerRepository computerRepository;
 
-    @Autowired
-    private com.example.system_erp.inventory.repositories.RamMemoryRepository ramRepository;
-
-    @Autowired
-    private com.example.system_erp.inventory.repositories.StorageDeviceRepository storageRepository;
-
     @GetMapping
     public List<Computer> getAll() {
         return computerRepository.findByIsActiveTrue();
@@ -29,25 +23,13 @@ public class ComputerController {
 
     @PostMapping
     public Computer save(@RequestBody Computer computer) {
-        // Aseguramos que los componentes mantengan la relación y sean entidades
-        // gestionadas
+        // Aseguramos que los componentes mantengan la relación bidireccional
         if (computer.getRamMemories() != null) {
-            computer.getRamMemories().forEach(ram -> {
-                if (ram.getId() != null) {
-                    // Si el componente ya existe, lo buscamos para que Hibernate lo reconozca
-                    ramRepository.findById(ram.getId()).ifPresent(managedRam -> {
-                        managedRam.setComputer(computer);
-                        // Los cambios en managedRam se guardarán si es necesario
-                    });
-                }
-                ram.setComputer(computer);
-            });
+            computer.getRamMemories().forEach(ram -> ram.setComputer(computer));
         }
 
         if (computer.getStorageDevices() != null) {
-            computer.getStorageDevices().forEach(storage -> {
-                storage.setComputer(computer);
-            });
+            computer.getStorageDevices().forEach(storage -> storage.setComputer(computer));
         }
 
         return computerRepository.save(computer);

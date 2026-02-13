@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import printerService from '../../services/printerService';
 import catalogService from '../../services/catalogService'; // 👈 Importamos el nuevo servicio
 import PrinterForm from './components/PrinterForm';
 import PrinterCard from './components/PrinterCard';
 
 const PrintersView = () => {
+    const navigate = useNavigate();
     const [printers, setPrinters] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [isEditing, setIsEditing] = useState(false);
@@ -66,9 +68,17 @@ const PrintersView = () => {
 
     return (
         <div className="animate-fadeIn">
-            <header className="mb-8">
-                <h1 className="text-3xl font-black text-gray-800">Módulo de Impresoras</h1>
-                <p className="text-gray-500 font-medium">Gestión profesional de inventario.</p>
+            <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 className="text-3xl font-black text-gray-800">Módulo de Impresoras</h1>
+                    <p className="text-gray-500 font-medium">Gestión profesional de inventario.</p>
+                </div>
+                <button
+                    onClick={() => navigate('/printers/inventory')}
+                    className="bg-orange-600 text-white font-black px-6 py-3 rounded-xl hover:bg-orange-700 transition-all flex items-center gap-2 shadow-lg shadow-orange-200"
+                >
+                    📋 VER INVENTARIO DETALLADO
+                </button>
             </header>
 
             {/* Renderizamos el Formulario */}

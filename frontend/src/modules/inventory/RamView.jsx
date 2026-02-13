@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ramService from '../../services/ramService';
 import RamForm from './components/RamForm';
 import RamCard from './components/RamCard';
 
 const RamView = () => {
+    const navigate = useNavigate();
     const [rams, setRams] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedRam, setSelectedRam] = useState(null);
@@ -46,9 +48,17 @@ const RamView = () => {
 
     return (
         <div className="animate-fadeIn">
-            <header className="mb-8">
-                <h1 className="text-3xl font-black text-gray-800 tracking-tight">Inventario de Memorias RAM</h1>
-                <p className="text-gray-500 font-medium text-lg">Control de repuestos y componentes instalados.</p>
+            <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 className="text-3xl font-black text-gray-800 tracking-tight">Inventario de Memorias RAM</h1>
+                    <p className="text-gray-500 font-medium text-lg">Control de repuestos y componentes instalados.</p>
+                </div>
+                <button
+                    onClick={() => navigate('/ram/inventory')}
+                    className="bg-blue-600 text-white font-black px-6 py-3 rounded-xl hover:bg-blue-700 transition-all flex items-center gap-2 shadow-lg shadow-blue-200"
+                >
+                    📋 VER INVENTARIO DETALLADO
+                </button>
             </header>
 
             <RamForm onSave={handleSave} editingRam={selectedRam} onCancel={() => setSelectedRam(null)} />

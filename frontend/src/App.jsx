@@ -8,6 +8,9 @@ import RamView from './modules/inventory/RamView';
 import StorageView from './modules/inventory/StorageView';
 import UserManagement from './modules/users/UserManagement';
 import ComputerInventoryTable from './modules/computers/ComputerInventoryTable';
+import RamInventoryTable from './modules/inventory/RamInventoryTable';
+import StorageInventoryTable from './modules/inventory/StorageInventoryTable';
+import PrinterInventoryTable from './modules/printers/PrinterInventoryTable';
 import './App.css';
 
 function App() {
@@ -23,10 +26,13 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             {/* Aquí agregaremos las otras rutas conforme las migremos */}
             <Route path="/printers" element={<PrintersView />} />
+            <Route path="/printers/inventory" element={<PrinterInventoryTable />} />
             <Route path="/computers" element={<ComputersView />} />
             <Route path="/computers/inventory" element={<ComputerInventoryTable />} />
             <Route path="/ram" element={<RamView />} />
+            <Route path="/ram/inventory" element={<RamInventoryTable />} />
             <Route path="/storage" element={<StorageView />} />
+            <Route path="/storage/inventory" element={<StorageInventoryTable />} />
             <Route path="/users" element={<UserManagement />} />
             <Route path="/phones" element={<div className="p-6 bg-white rounded-xl shadow">Módulo de Teléfonos (Próximamente)</div>} />
           </Route>

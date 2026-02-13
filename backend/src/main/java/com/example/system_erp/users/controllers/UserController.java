@@ -48,7 +48,7 @@ public class UserController {
             }
 
             // Guardar el usuario
-            User savedUser = userRepository.save(user);
+            userRepository.save(user);
             return ResponseEntity.ok("Usuario registrado exitosamente");
 
         } catch (RuntimeException e) {
