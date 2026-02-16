@@ -24,3 +24,6 @@ desktop.ini
 dist/
 target/
 node_modules/
+
+# Guía privada
+DEVELOPER_GUIDE.md

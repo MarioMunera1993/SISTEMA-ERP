@@ -6,68 +6,52 @@ Sistema de Gestión de Recursos Empresariales (ERP) profesional y moderno, dise�
 
 ## ✨ Características Implementadas
 
-### 🖨️ Módulo de Gestión de Impresoras
-- **Control Total**: Registro detallado de marca, modelo, número de serie, IP y responsable.
-- **Interfaz Inteligente**: 
-  - Formulario dinámico con conversión automática a **MAYÚSCULAS**.
-  - Reseteo inteligente tras guardado.
-  - Indicador visual de **Color vs Blanco y Negro**.
-  - Visualización de Sedes, Tipos y Estados en tiempo real.
-- **Búsqueda Avanzada**: Filtrado instantáneo por marca, serie o persona responsable.
+### 💻 Módulos de Inventario de Hardware
+- **Computadores**: Gestión completa con asociación de RAM y Discos. Autocompletado de fechas y validación de MAC Address.
+- **Périféricos**: Control de Celulares e Impresoras con datos técnicos específicos.
+- **Componentes**: Módulos independientes para memorias RAM y Discos Duros (SSD/HDD).
+- **Inventario General**: Vista consolidada de todos los activos tecnológicos.
 
-### 📚 Sistema de Catálogos Automáticos
-- Gestión modular de:
-  - **Sedes (Branches)**: Ubicaciones físicas de los equipos.
-  - **Tipos de Equipo**: Clasificación profesional (Láser, Multifuncional, etc.).
-  - **Estados**: Monitoreo de disponibilidad (Activo, Inactivo, En Reparación).
+### 📚 Sistema de Catálogos e Infraestructura
+- **Sedes y Ubicaciones**: Organización física de los equipos.
+- **Estados y Marcas**: Estandarización de la información para reportes precisos.
+- **Auditoría**: Registro automático de fechas de ingreso y modificación.
 
 ### 🔐 Seguridad y Autenticación
-- **JWT (JSON Web Tokens)**: Implementación robusta para sesiones seguras.
-- **Middleware de Seguridad**: Filtro de autenticación personalizado (`JwtAuthenticationFilter`) que valida cada petición al servidor.
-- **Persistencia Segura**: Manejo de tokens en el frontend para una experiencia de usuario fluida y protegida.
+- **JWT (JSON Web Tokens)**: Sesiones seguras con expiración.
+- **CORS Configurado**: Integración segura entre Frontend y Backend.
+- **Manejo de Roles**: Preparado para expansión de permisos.
 
 ---
 
 ## 🛠️ Stack Tecnológico
 
 ### Backend
-- **Java 17**
-- **Spring Boot 3.4.2**
-- **Spring Security + JWT** (Arquitectura sin estado)
-- **Spring Data JPA** (Persistencia avanzada)
-- **MySQL** (Base de Datos Relacional)
-- **Lombok** (Código limpio y eficiente)
+- **Java 17** + **Spring Boot 3.4.2**
+- **Spring Security + JWT**
+- **Spring Data JPA** (MySQL)
+- **Maven** (Gestión de dependencias)
 
 ### Frontend
-- **React 19 + Vite** (Renderizado ultrarrápido)
-- **Tailwind CSS 4** (Diseño moderno, responsivo y minimalista)
-- **Axios** (Integración fluida con API protegida)
-- **React Router Dom** (Navegación profesional)
+- **React 19 + Vite**
+- **Tailwind CSS 4**
+- **Axios** (API Client)
+- **React Router Dom 7**
 
 ---
 
 ## 🚀 Guía de Instalación
 
-### Requisitos Previos
-- **JDK 17** o superior.
-- **Node.js 18** o superior.
-- **MySQL Server**.
+### 1. Requisitos
+- Java 17+, Node.js 20+, MySQL 8.0+.
 
-### 1. Configuración de la Base de Datos
-1. Crea una base de datos llamada `system_erp_db`.
-2. Las tablas se generan automáticamente al iniciar el backend gracias a JPA/Hibernate.
-
-### 2. Backend
+### 2. Configuración Fast-Track
 ```bash
-cd backend
-./mvnw spring-boot:run
-```
+# Backend: Configura la DB en src/main/resources/application.properties
+cd backend && ./mvnw spring-boot:run
 
-### 3. Frontend
-```bash
-cd frontend
-npm install
-npm run dev
+# Frontend:
+cd frontend && npm install && npm run dev
 ```
 
 ---
@@ -76,16 +60,17 @@ npm run dev
 
 ```text
 SISTEM-ERP/
-├── backend/          # API REST con Spring Boot
-│   ├── src/.../catalogs # Módulo de Catálogos (Nuevo)
-│   ├── src/.../printers # Módulo de Impresoras (Nuevo)
-│   ├── src/.../security # Arquitectura de Seguridad JWT
-│   └── pom.xml       # Configuración Maven
-├── frontend/         # Interfaz de usuario con React
-│   ├── src/modules   # Módulos funcionales (Printers, etc.)
-│   ├── src/services  # Servicios de API con Auth
-│   └── src/layout    # Diseño y navegación principal
-└── database/         # Repositorio de scripts SQL
+├── backend/          # Spring Boot API
+│   ├── catalogs/     # Marcas, Sedes, Estados
+│   ├── computers/    # Lógica de Computadores
+│   ├── inventory/    # Lógica de Discos y RAM
+│   ├── security/     # Seguridad JWT
+│   └── uploads/      # Imágenes y Archivos
+├── frontend/         # React Application
+│   ├── src/modules/  # Módulos Computadores, Celulares, etc.
+│   ├── src/services/ # Servicios Axios y Auth
+│   └── src/hooks/    # Custom React Hooks
+└── database/         # Recursos SQL
 ```
 
 ---
