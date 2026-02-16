@@ -135,7 +135,28 @@ CREATE TABLE IF NOT EXISTS phones (
     CONSTRAINT fk_phone_status FOREIGN KEY (status_id) REFERENCES equipment_statuses(id)
 );
 
--- 6. Inserción de Datos Iniciales
+-- 6. Tablas de Mantenimiento
+CREATE TABLE IF NOT EXISTS computer_maintenances (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    computer_id BIGINT NOT NULL,
+    maintenance_date DATE NOT NULL,
+    observations TEXT,
+    attachment_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_maintenance_computer FOREIGN KEY (computer_id) REFERENCES computers(id)
+);
+
+CREATE TABLE IF NOT EXISTS printer_maintenances (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    printer_id BIGINT NOT NULL,
+    maintenance_date DATE NOT NULL,
+    observations TEXT,
+    attachment_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_maintenance_printer FOREIGN KEY (printer_id) REFERENCES printers(id)
+);
+
+-- 7. Inserción de Datos Iniciales
 INSERT IGNORE INTO roles (name, description) VALUES 
 ('ADMIN', 'Administrador total del sistema'),
 ('OPERATOR', 'Operador con permisos limitados');

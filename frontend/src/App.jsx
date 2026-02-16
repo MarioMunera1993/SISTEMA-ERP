@@ -13,6 +13,8 @@ import StorageInventoryTable from './modules/inventory/StorageInventoryTable';
 import PrinterInventoryTable from './modules/printers/PrinterInventoryTable';
 import PhonesView from './modules/phones/PhonesView';
 import PhoneInventoryTable from './modules/phones/PhoneInventoryTable';
+import ComputerMaintenances from './modules/maintenances/ComputerMaintenances';
+import PrinterMaintenances from './modules/maintenances/PrinterMaintenances';
 import './App.css';
 
 function App() {
@@ -38,6 +40,8 @@ function App() {
             <Route path="/users" element={<UserManagement />} />
             <Route path="/phones" element={<PhonesView />} />
             <Route path="/phones/inventory" element={<PhoneInventoryTable />} />
+            <Route path="/maintenances/computers" element={<ComputerMaintenances />} />
+            <Route path="/maintenances/printers" element={<PrinterMaintenances />} />
           </Route>
 
           {/* Redirecciones */}

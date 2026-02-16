@@ -10,6 +10,8 @@ const Sidebar = () => {
         { name: 'Discos Duros', path: '/storage', icon: '💾' },
         { name: 'Usuarios', path: '/users', icon: '👥' },
         { name: 'Teléfonos', path: '/phones', icon: '📱' },
+        { name: 'Mant. PCs', path: '/maintenances/computers', icon: '🛠️' },
+        { name: 'Mant. Impresoras', path: '/maintenances/printers', icon: '🔧' },
     ];
 
     return (

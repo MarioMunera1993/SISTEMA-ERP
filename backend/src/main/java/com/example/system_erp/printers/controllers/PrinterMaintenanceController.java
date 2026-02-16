@@ -1,0 +1,77 @@
+package com.example.system_erp.printers.controllers;
+
+import com.example.system_erp.printers.models.Printer;
+import com.example.system_erp.printers.models.PrinterMaintenance;
+import com.example.system_erp.printers.repositories.PrinterMaintenanceRepository;
+import com.example.system_erp.printers.repositories.PrinterRepository;
+import com.example.system_erp.services.FileStorageService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Objects;
+
+@RestController
+@RequestMapping("/api/printer-maintenances")
+@CrossOrigin(origins = "*")
+public class PrinterMaintenanceController {
+
+    @Autowired
+    private PrinterMaintenanceRepository maintenanceRepository;
+
+    @Autowired
+    private PrinterRepository printerRepository;
+
+    @Autowired
+    private FileStorageService fileStorageService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @GetMapping
+    public List<PrinterMaintenance> getAllMaintenances() {
+        return maintenanceRepository.findAll();
+    }
+
+    @GetMapping("/printer/{printerId}")
+    public List<PrinterMaintenance> getMaintenancesByPrinter(@PathVariable Long printerId) {
+        return maintenanceRepository.findByPrinterId(printerId);
+    }
+
+    @PostMapping(consumes = { "multipart/form-data" })
+    public ResponseEntity<?> createMaintenance(
+            @RequestParam("maintenance") String maintenanceJson,
+            @RequestParam(value = "file", required = false) MultipartFile file) {
+        try {
+            PrinterMaintenance maintenance = objectMapper.readValue(maintenanceJson, PrinterMaintenance.class);
+
+            if (maintenance.getPrinter() == null || maintenance.getPrinter().getId() == null) {
+                return ResponseEntity.badRequest().body("La impresora es obligatoria");
+            }
+
+            Long printerId = Objects.requireNonNull(maintenance.getPrinter().getId());
+            Printer printer = printerRepository.findById(printerId)
+                    .orElseThrow(() -> new RuntimeException("Impresora no encontrada"));
+
+            maintenance.setPrinter(printer);
+
+            if (file != null && !file.isEmpty()) {
+                String fileName = fileStorageService.storeFile(file);
+                maintenance.setAttachmentPath(fileName);
+            }
+
+            return ResponseEntity.ok(maintenanceRepository.save(maintenance));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Error al procesar el mantenimiento: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMaintenance(@PathVariable Long id) {
+        maintenanceRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+}

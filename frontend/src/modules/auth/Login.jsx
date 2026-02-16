@@ -25,7 +25,7 @@ const Login = () => {
         <div className="min-h-screen flex items-center justify-center bg-slate-900">
             <div className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md border-t-8 border-blue-600">
                 <div className="text-center mb-10">
-                    <h1 className="text-4xl font-black text-slate-800 tracking-tight">ERP <span className="text-blue-600">ROLDAN</span></h1>
+                    <h1 className="text-4xl font-black text-slate-800 tracking-tight">Grupo <span className="text-blue-600">Roldan</span></h1>
                     <p className="text-slate-500 mt-2">Bienvenido, ingresa tus credenciales</p>
                 </div>
                 {error && (

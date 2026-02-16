@@ -36,6 +36,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/roles/**").permitAll()
                         .requestMatchers("/api/users/reset-admin-password").permitAll()
                         .requestMatchers("/api/users/register").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
                         .anyRequest().authenticated());
 
         // AQUÍ ES DONDE AGREGAMOS EL FILTRO 👈
