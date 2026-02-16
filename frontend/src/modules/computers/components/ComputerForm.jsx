@@ -19,7 +19,8 @@ const ComputerForm = ({ onSave, editingComputer, onCancel, types, statuses, bran
         admissionDate: '',
         updateDate: '',
         ramMemories: [],
-        storageDevices: []
+        storageDevices: [],
+        operatingSystem: ''
     };
 
     const [formData, setFormData] = useState(initialFormState);
@@ -48,7 +49,8 @@ const ComputerForm = ({ onSave, editingComputer, onCancel, types, statuses, bran
                 ...editingComputer,
                 typeId: editingComputer.type?.id || '',
                 statusId: editingComputer.status?.id || '',
-                branchId: editingComputer.branch?.id || ''
+                branchId: editingComputer.branch?.id || '',
+                operatingSystem: editingComputer.operatingSystem || ''
             });
         } else {
             setFormData(initialFormState);
@@ -90,7 +92,8 @@ const ComputerForm = ({ onSave, editingComputer, onCancel, types, statuses, bran
             // Aseguramos nulos para fechas si están vacías
             admissionDate: editingComputer ? (formData.admissionDate || null) : null,
             purchaseDate: formData.purchaseDate || null,
-            updateDate: null
+            updateDate: null,
+            operatingSystem: formData.operatingSystem || null
         };
 
         await onSave(dataToSave);
@@ -187,6 +190,22 @@ const ComputerForm = ({ onSave, editingComputer, onCancel, types, statuses, bran
                         value={formData.purchaseDate} onChange={(e) => setFormData({ ...formData, purchaseDate: e.target.value })}
                     />
                 </div>
+
+                <select
+                    className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 bg-white font-semibold"
+                    value={formData.operatingSystem}
+                    onChange={(e) => setFormData({ ...formData, operatingSystem: e.target.value })}
+                    required
+                >
+                    <option value="">Sistema Operativo...</option>
+                    <option value="WINDOWS 11">WINDOWS 11</option>
+                    <option value="WINDOWS 10">WINDOWS 10</option>
+                    <option value="WINDOWS 8.1">WINDOWS 8.1</option>
+                    <option value="WINDOWS 7">WINDOWS 7</option>
+                    <option value="LINUX">LINUX</option>
+                    <option value="MAC OS">MAC OS</option>
+                    <option value="ETC">ETC / OTRO</option>
+                </select>
             </div>
 
             {/* GESTIÓN DE COMPONENTES */}

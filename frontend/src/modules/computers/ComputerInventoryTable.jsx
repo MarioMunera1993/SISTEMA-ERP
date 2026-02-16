@@ -70,6 +70,7 @@ const ComputerInventoryTable = () => {
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Marca/Modelo</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Serie</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Procesador</th>
+                                <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">S.O.</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Memorias RAM</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Discos Duros</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Sede</th>
@@ -93,6 +94,9 @@ const ComputerInventoryTable = () => {
                                     </td>
                                     <td className="px-4 py-4 text-xs font-bold text-blue-600 whitespace-nowrap">
                                         {c.processor}
+                                    </td>
+                                    <td className="px-4 py-4 text-xs font-black text-purple-600 whitespace-nowrap uppercase">
+                                        {c.operatingSystem || "---"}
                                     </td>
                                     <td className="px-4 py-4">
                                         <div className="flex flex-col gap-1 min-w-[120px]">

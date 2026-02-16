@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS computers (
     purchase_date DATE,
     admission_date DATE,
     update_date DATE,
+    operating_system VARCHAR(100),
     is_active BOOLEAN DEFAULT TRUE,
     created_at DATETIME,
     updated_at DATETIME,
@@ -112,6 +113,26 @@ CREATE TABLE IF NOT EXISTS printers (
     updated_at DATE,
     status_id INT,
     CONSTRAINT fk_printer_branch FOREIGN KEY (branch_id) REFERENCES branches(id)
+);
+
+CREATE TABLE IF NOT EXISTS phones (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    brand VARCHAR(255) NOT NULL,
+    model VARCHAR(255) NOT NULL,
+    serial_number VARCHAR(255) NOT NULL UNIQUE,
+    inventory_tag VARCHAR(255) NOT NULL UNIQUE,
+    extension VARCHAR(50),
+    ip_address VARCHAR(50),
+    responsible_person VARCHAR(255),
+    purchase_date DATE,
+    admission_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    update_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    modified_by VARCHAR(255),
+    is_active BOOLEAN DEFAULT TRUE,
+    branch_id INT,
+    status_id INT,
+    CONSTRAINT fk_phone_branch FOREIGN KEY (branch_id) REFERENCES branches(id),
+    CONSTRAINT fk_phone_status FOREIGN KEY (status_id) REFERENCES equipment_statuses(id)
 );
 
 -- 6. Inserción de Datos Iniciales

@@ -68,6 +68,9 @@ public class Computer {
     @Column(name = "update_date")
     private LocalDate updateDate;
 
+    @Column(name = "operating_system")
+    private String operatingSystem;
+
     // Relaciones con Componentes (Bidireccional)
     @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RamMemory> ramMemories;
