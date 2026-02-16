@@ -1,7 +1,8 @@
 import axios from 'axios';
+import API_BASE_URL from '../config/apiConfig';
 
-const API_URL = 'http://localhost:8080/api/users';
-const ROLES_URL = 'http://localhost:8080/api/roles';
+const API_URL = `${API_BASE_URL}/users`;
+const ROLES_URL = `${API_BASE_URL}/roles`;
 
 // Helper for auth headers
 const getAuthHeader = () => {

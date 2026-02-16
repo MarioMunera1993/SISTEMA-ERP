@@ -32,6 +32,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/index.html", "/favicon.ico", "/assets/**", "/logo.png").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/roles/**").permitAll()
                         .requestMatchers("/api/users/reset-admin-password").permitAll()

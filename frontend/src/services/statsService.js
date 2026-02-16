@@ -1,6 +1,7 @@
 import axios from 'axios';
+import API_BASE_URL from '../config/apiConfig';
 
-const API_BASE_URL = "http://localhost:8080/api/stats";
+const STATS_API_URL = `${API_BASE_URL}/stats`;
 
 const authHeader = () => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -12,7 +13,7 @@ const authHeader = () => {
 };
 
 const getDashboardStats = () => {
-    return axios.get(`${API_BASE_URL}/dashboard`, { headers: authHeader() });
+    return axios.get(`${STATS_API_URL}/dashboard`, { headers: authHeader() });
 };
 
 const statsService = {
