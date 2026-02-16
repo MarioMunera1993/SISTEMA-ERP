@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 const StorageForm = ({ onSave, editingStorage, onCancel }) => {
     const initialFormState = {
         brand: '',
-        model: '',
         capacity: '',
         type: '',
         serialNumber: '',
@@ -38,12 +37,6 @@ const StorageForm = ({ onSave, editingStorage, onCancel }) => {
                     className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 uppercase font-semibold"
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value.toUpperCase() })}
-                />
-                <input
-                    type="text" placeholder="Modelo" required
-                    className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 uppercase font-semibold"
-                    value={formData.model}
-                    onChange={(e) => setFormData({ ...formData, model: e.target.value.toUpperCase() })}
                 />
                 <input
                     type="text" placeholder="Capacidad (ej: 1TB SSD)" required

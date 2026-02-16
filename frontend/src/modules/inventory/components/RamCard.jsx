@@ -16,7 +16,6 @@ const RamCard = ({ ram, onEdit, onDelete }) => {
                 <div className="bg-purple-50 p-3.5 rounded-xl text-purple-600 text-3xl group-hover:scale-110 transition-transform">🧠</div>
                 <div>
                     <h4 className="font-black text-gray-800 text-xl uppercase tracking-tight leading-none">{ram.brand}</h4>
-                    <p className="text-gray-500 text-base font-semibold">{ram.model}</p>
                 </div>
             </div>
 
@@ -34,6 +33,13 @@ const RamCard = ({ ram, onEdit, onDelete }) => {
                     <span className="text-gray-800 font-black text-base">{ram.speed || '---'} MHZ</span>
                 </div>
             </div>
+
+            {ram.observations && (
+                <div className="mt-4 p-3 bg-purple-50/50 rounded-xl border border-purple-100/50">
+                    <span className="text-purple-400 font-black uppercase text-[9px] block">Observaciones</span>
+                    <p className="text-purple-800 text-xs font-medium italic leading-tight">{ram.observations}</p>
+                </div>
+            )}
 
             <div className="mt-4 pt-4 border-t border-gray-50">
                 <div className="flex justify-between items-center text-sm">

@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import catalogService from '../../services/catalogService';
 import ComputerForm from './components/ComputerForm';
 import ComputerCard from './components/ComputerCard';
+import Toast from '../../components/common/Toast';
 
 const ComputersView = () => {
     const [computers, setComputers] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [selectedComputer, setSelectedComputer] = useState(null);
+    const [toast, setToast] = useState(null);
     const navigate = useNavigate();
 
     // Estados para los catálogos
@@ -43,10 +45,11 @@ const ComputersView = () => {
             await computerService.saveComputer(computerData);
             setIsEditing(false);
             setSelectedComputer(null);
+            setToast({ message: "Computador guardado correctamente", type: "success" });
             loadData();
         } catch (error) {
             const errorMsg = error.response?.data || "Error al guardar el computador. Verifique los datos e intente nuevamente.";
-            alert(errorMsg);
+            setToast({ message: errorMsg, type: "error" });
         }
     };
 
@@ -54,9 +57,10 @@ const ComputersView = () => {
         if (window.confirm("¿Estás seguro de eliminar este computador del inventario? (Borrado lógico)")) {
             try {
                 await computerService.deleteComputer(id);
+                setToast({ message: "Computador eliminado (desactivado)", type: "success" });
                 loadData();
             } catch (error) {
-                alert("Error al eliminar");
+                setToast({ message: "Error al eliminar", type: "error" });
             }
         }
     };
@@ -130,6 +134,8 @@ const ComputersView = () => {
                     <p className="text-gray-400 font-medium italic">No se encontraron computadores en el inventario.</p>
                 </div>
             )}
+
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
         </div>
     );
 };

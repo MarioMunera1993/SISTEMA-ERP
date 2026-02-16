@@ -27,10 +27,10 @@ const RamInventoryTable = () => {
         const query = searchTerm.toLowerCase();
         return (
             r.brand?.toLowerCase().includes(query) ||
-            r.model?.toLowerCase().includes(query) ||
             r.serialNumber?.toLowerCase().includes(query) ||
             r.capacity?.toLowerCase().includes(query) ||
             r.type?.toLowerCase().includes(query) ||
+            r.observations?.toLowerCase().includes(query) ||
             r.computerId?.toString().includes(query)
         );
     });
@@ -67,12 +67,13 @@ const RamInventoryTable = () => {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-gray-50 border-b border-gray-100">
-                                <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Marca/Modelo</th>
+                                <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Marca</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Capacidad</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Tipo</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Velocidad</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Serie</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">PC Asociado</th>
+                                <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Observaciones</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400 text-center">Estado</th>
                             </tr>
                         </thead>
@@ -80,7 +81,7 @@ const RamInventoryTable = () => {
                             {filteredRams.map(r => (
                                 <tr key={r.id} className="hover:bg-blue-50/30 transition-colors">
                                     <td className="px-4 py-4 font-bold text-gray-800 uppercase text-xs">
-                                        {r.brand} {r.model}
+                                        {r.brand}
                                     </td>
                                     <td className="px-4 py-4 text-xs font-black text-blue-600">
                                         {r.capacity}
@@ -102,6 +103,9 @@ const RamInventoryTable = () => {
                                         ) : (
                                             <span className="text-[10px] text-gray-400 italic">No asociado</span>
                                         )}
+                                    </td>
+                                    <td className="px-4 py-4 text-[10px] text-gray-500 font-medium max-w-[150px] truncate">
+                                        {r.observations || "---"}
                                     </td>
                                     <td className="px-4 py-4 text-center">
                                         <span className={`text-[10px] font-black px-2 py-1 rounded-full uppercase border ${r.isActive ? 'bg-green-100 text-green-700 border-green-200' : 'bg-red-100 text-red-700 border-red-200'}`}>

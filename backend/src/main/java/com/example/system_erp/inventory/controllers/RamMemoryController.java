@@ -28,7 +28,7 @@ public class RamMemoryController {
             return ramRepository.findById(id)
                     .map(existingRam -> {
                         existingRam.setBrand(ram.getBrand());
-                        existingRam.setModel(ram.getModel());
+                        existingRam.setObservations(ram.getObservations());
                         existingRam.setCapacity(ram.getCapacity());
                         existingRam.setType(ram.getType());
                         existingRam.setSpeed(ram.getSpeed());

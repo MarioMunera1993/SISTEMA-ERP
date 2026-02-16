@@ -19,8 +19,8 @@ public class RamMemory {
     @Column(nullable = false)
     private String brand;
 
-    @Column(nullable = false)
-    private String model;
+    @Column(length = 500)
+    private String observations;
 
     @Column(nullable = false)
     private String capacity; // Ejemplo: "8GB", "16GB"

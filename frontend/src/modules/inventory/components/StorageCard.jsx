@@ -16,7 +16,6 @@ const StorageCard = ({ storage, onEdit, onDelete }) => {
                 <div className="bg-blue-50 p-3.5 rounded-xl text-blue-600 text-3xl group-hover:scale-110 transition-transform">💾</div>
                 <div>
                     <h4 className="font-black text-gray-800 text-xl uppercase tracking-tight leading-none">{storage.brand}</h4>
-                    <p className="text-gray-500 text-base font-semibold">{storage.model}</p>
                 </div>
             </div>
 

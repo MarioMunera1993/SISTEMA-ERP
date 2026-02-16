@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import printerService from '../../services/printerService';
-import catalogService from '../../services/catalogService'; // 👈 Importamos el nuevo servicio
+import catalogService from '../../services/catalogService';
 import PrinterForm from './components/PrinterForm';
 import PrinterCard from './components/PrinterCard';
+import Toast from '../../components/common/Toast';
 
 const PrintersView = () => {
     const navigate = useNavigate();
@@ -11,6 +12,7 @@ const PrintersView = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [selectedPrinter, setSelectedPrinter] = useState(null);
+    const [toast, setToast] = useState(null);
 
     // Estados para los catálogos
     const [types, setTypes] = useState([]);
@@ -31,6 +33,7 @@ const PrintersView = () => {
             setBranches(branchesRes.data);
         } catch (error) {
             console.error("Error cargando datos:", error);
+            setToast({ message: "Error cargando datos: " + (error.response?.data || error.message), type: "error" });
         }
     };
 
@@ -40,23 +43,30 @@ const PrintersView = () => {
 
     const handleSave = async (printerData) => {
         try {
-            if (isEditing) {
-                await printerService.updatePrinter(printerData.id, printerData);
+            if (selectedPrinter) {
+                await printerService.updatePrinter(selectedPrinter.id, printerData);
+                setToast({ message: "Impresora actualizada correctamente", type: "success" });
             } else {
                 await printerService.createPrinter(printerData);
+                setToast({ message: "Impresora creada correctamente", type: "success" });
             }
             setIsEditing(false);
             setSelectedPrinter(null);
             loadData();
         } catch (error) {
-            alert(error.response?.data || "Error al guardar");
+            setToast({ message: error.response?.data || "Error al guardar", type: "error" });
         }
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm("¿Estás seguro de eliminar este equipo?")) {
-            await printerService.deletePrinter(id);
-            loadData();
+        if (window.confirm("¿Eliminar esta impresora del inventario?")) {
+            try {
+                await printerService.deletePrinter(id);
+                setToast({ message: "Impresora eliminada", type: "success" });
+                loadData();
+            } catch (error) {
+                setToast({ message: "Error al eliminar: " + (error.response?.data || error.message), type: "error" });
+            }
         }
     };
 
@@ -117,9 +127,11 @@ const PrintersView = () => {
 
             {filteredPrinters.length === 0 && (
                 <div className="text-center py-20 bg-white rounded-2xl border-2 border-dashed border-gray-100">
-                    <p className="text-gray-400 font-medium italic">No se encontraron equipos en el inventario.</p>
+                    <p className="text-gray-400 font-medium italic">No se encontraron impresoras en el inventario.</p>
                 </div>
             )}
+
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
         </div>
     );
 };

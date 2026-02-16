@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import storageService from '../../services/storageService';
 import StorageForm from './components/StorageForm';
 import StorageCard from './components/StorageCard';
+import Toast from '../../components/common/Toast';
 
 const StorageView = () => {
     const navigate = useNavigate();
     const [storages, setStorages] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedStorage, setSelectedStorage] = useState(null);
+    const [toast, setToast] = useState(null);
 
     const loadData = async () => {
         try {
@@ -27,16 +29,22 @@ const StorageView = () => {
         try {
             await storageService.saveStorage(storageData);
             setSelectedStorage(null);
+            setToast({ message: "Disco duro guardado correctamente", type: "success" });
             loadData();
         } catch (error) {
-            alert(error.response?.data || "Error al guardar");
+            setToast({ message: error.response?.data || "Error al guardar", type: "error" });
         }
     };
 
     const handleDelete = async (id) => {
         if (window.confirm("¿Eliminar este disco de bodega?")) {
-            await storageService.deleteStorage(id);
-            loadData();
+            try {
+                await storageService.deleteStorage(id);
+                setToast({ message: "Disco eliminado de bodega", type: "success" });
+                loadData();
+            } catch (error) {
+                setToast({ message: "Error al eliminar", type: "error" });
+            }
         }
     };
 
@@ -82,6 +90,8 @@ const StorageView = () => {
                     <p className="text-gray-400 font-medium italic text-lg">No hay unidades de almacenamiento registradas.</p>
                 </div>
             )}
+
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
         </div>
     );
 };

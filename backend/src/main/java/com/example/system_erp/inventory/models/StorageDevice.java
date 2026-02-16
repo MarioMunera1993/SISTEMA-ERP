@@ -20,9 +20,6 @@ public class StorageDevice {
     private String brand;
 
     @Column(nullable = false)
-    private String model;
-
-    @Column(nullable = false)
     private String capacity; // Ejemplo: "500GB", "1TB"
 
     @Column(nullable = false)

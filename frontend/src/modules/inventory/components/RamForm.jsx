@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 const RamForm = ({ onSave, editingRam, onCancel }) => {
     const initialFormState = {
         brand: '',
-        model: '',
         capacity: '',
         type: '',
         speed: '',
-        serialNumber: ''
+        serialNumber: '',
+        observations: ''
     };
 
     const [formData, setFormData] = useState(initialFormState);
@@ -40,12 +40,6 @@ const RamForm = ({ onSave, editingRam, onCancel }) => {
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value.toUpperCase() })}
                 />
                 <input
-                    type="text" placeholder="Modelo" required
-                    className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 uppercase font-semibold"
-                    value={formData.model}
-                    onChange={(e) => setFormData({ ...formData, model: e.target.value.toUpperCase() })}
-                />
-                <input
                     type="text" placeholder="Capacidad (ej: 8GB)" required
                     className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
                     value={formData.capacity}
@@ -73,6 +67,15 @@ const RamForm = ({ onSave, editingRam, onCancel }) => {
                     className="p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 uppercase font-semibold"
                     value={formData.serialNumber}
                     onChange={(e) => setFormData({ ...formData, serialNumber: e.target.value.toUpperCase() })}
+                />
+            </div>
+
+            <div className="mt-4">
+                <textarea
+                    placeholder="Observaciones adicionales..."
+                    className="w-full p-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-blue-500 font-semibold h-24 resize-none"
+                    value={formData.observations}
+                    onChange={(e) => setFormData({ ...formData, observations: e.target.value })}
                 />
             </div>
 

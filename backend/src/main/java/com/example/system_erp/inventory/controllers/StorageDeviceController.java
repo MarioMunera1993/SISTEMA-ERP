@@ -28,7 +28,6 @@ public class StorageDeviceController {
             return storageRepository.findById(id)
                     .map(existingStorage -> {
                         existingStorage.setBrand(storage.getBrand());
-                        existingStorage.setModel(storage.getModel());
                         existingStorage.setCapacity(storage.getCapacity());
                         existingStorage.setType(storage.getType());
                         existingStorage.setObservations(storage.getObservations());

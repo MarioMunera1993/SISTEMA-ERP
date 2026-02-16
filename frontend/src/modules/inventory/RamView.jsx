@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import ramService from '../../services/ramService';
 import RamForm from './components/RamForm';
 import RamCard from './components/RamCard';
+import Toast from '../../components/common/Toast';
 
 const RamView = () => {
     const navigate = useNavigate();
     const [rams, setRams] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedRam, setSelectedRam] = useState(null);
+    const [toast, setToast] = useState(null);
 
     const loadData = async () => {
         try {
@@ -27,16 +29,22 @@ const RamView = () => {
         try {
             await ramService.saveRam(ramData);
             setSelectedRam(null);
+            setToast({ message: "RAM guardada correctamente", type: "success" });
             loadData();
         } catch (error) {
-            alert(error.response?.data || "Error al guardar");
+            setToast({ message: error.response?.data || "Error al guardar", type: "error" });
         }
     };
 
     const handleDelete = async (id) => {
         if (window.confirm("¿Eliminar esta memoria de bodega?")) {
-            await ramService.deleteRam(id);
-            loadData();
+            try {
+                await ramService.deleteRam(id);
+                setToast({ message: "RAM eliminada de bodega", type: "success" });
+                loadData();
+            } catch (error) {
+                setToast({ message: "Error al eliminar", type: "error" });
+            }
         }
     };
 
@@ -82,6 +90,8 @@ const RamView = () => {
                     <p className="text-gray-400 font-medium italic text-lg">No hay memorias registradas.</p>
                 </div>
             )}
+
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
         </div>
     );
 };

@@ -4,6 +4,7 @@ import phoneService from '../../services/phoneService';
 import catalogService from '../../services/catalogService';
 import PhoneForm from './components/PhoneForm';
 import PhoneCard from './components/PhoneCard';
+import Toast from '../../components/common/Toast';
 
 const PhonesView = () => {
     const navigate = useNavigate();
@@ -11,6 +12,7 @@ const PhonesView = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [selectedPhone, setSelectedPhone] = useState(null);
+    const [toast, setToast] = useState(null);
 
     const [branches, setBranches] = useState([]);
     const [statuses, setStatuses] = useState([]);
@@ -27,6 +29,7 @@ const PhonesView = () => {
             setStatuses(statusesRes.data);
         } catch (error) {
             console.error("Error cargando datos:", error);
+            setToast({ message: "Error cargando datos", type: "error" });
         }
     };
 
@@ -37,18 +40,24 @@ const PhonesView = () => {
     const handleSave = async (phoneData) => {
         try {
             await phoneService.savePhone(phoneData);
-            setIsEditing(false);
             setSelectedPhone(null);
+            setIsEditing(false); // Keep this to close the form
+            setToast({ message: "Teléfono guardado correctamente", type: "success" });
             loadData();
         } catch (error) {
-            alert(error.response?.data || "Error al guardar");
+            setToast({ message: error.response?.data || "Error al guardar", type: "error" });
         }
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm("¿Estás seguro de eliminar este teléfono?")) {
-            await phoneService.deletePhone(id);
-            loadData();
+        if (window.confirm("¿Eliminar este equipo del inventario?")) {
+            try {
+                await phoneService.deletePhone(id);
+                setToast({ message: "Teléfono eliminado", type: "success" });
+                loadData();
+            } catch (error) {
+                setToast({ message: "Error al eliminar", type: "error" });
+            }
         }
     };
 
@@ -106,6 +115,8 @@ const PhonesView = () => {
                     <p className="text-gray-400 font-medium italic">No se encontraron teléfonos en el inventario.</p>
                 </div>
             )}
+
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
         </div>
     );
 };

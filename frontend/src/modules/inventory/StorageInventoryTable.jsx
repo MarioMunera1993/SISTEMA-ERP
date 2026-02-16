@@ -27,7 +27,6 @@ const StorageInventoryTable = () => {
         const query = searchTerm.toLowerCase();
         return (
             s.brand?.toLowerCase().includes(query) ||
-            s.model?.toLowerCase().includes(query) ||
             s.serialNumber?.toLowerCase().includes(query) ||
             s.capacity?.toLowerCase().includes(query) ||
             s.type?.toLowerCase().includes(query) ||
@@ -68,7 +67,7 @@ const StorageInventoryTable = () => {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-gray-50 border-b border-gray-100">
-                                <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Marca/Modelo</th>
+                                <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Marca</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Capacidad</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Tipo</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Serie</th>
@@ -81,7 +80,7 @@ const StorageInventoryTable = () => {
                             {filteredStorage.map(s => (
                                 <tr key={s.id} className="hover:bg-purple-50/30 transition-colors">
                                     <td className="px-4 py-4 font-bold text-gray-800 uppercase text-xs">
-                                        {s.brand} {s.model}
+                                        {s.brand}
                                     </td>
                                     <td className="px-4 py-4 text-xs font-black text-purple-600">
                                         {s.capacity}
