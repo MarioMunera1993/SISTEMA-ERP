@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,7 +60,9 @@ public class ComputerMaintenanceController {
             maintenance.setComputer(computer);
 
             if (file != null && !file.isEmpty()) {
-                String fileName = fileStorageService.storeFile(file);
+                String dateStr = maintenance.getMaintenanceDate().format(DateTimeFormatter.ofPattern("ddMMyyyy"));
+                String preferredFileName = computer.getTeamNumber() + "-" + dateStr;
+                String fileName = fileStorageService.storeFile(file, preferredFileName);
                 maintenance.setAttachmentPath(fileName);
             }
 

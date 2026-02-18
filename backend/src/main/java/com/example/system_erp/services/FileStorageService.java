@@ -28,6 +28,10 @@ public class FileStorageService {
     }
 
     public String storeFile(MultipartFile file) {
+        return storeFile(file, UUID.randomUUID().toString());
+    }
+
+    public String storeFile(MultipartFile file, String preferredFileName) {
         String fileNameWithExt = file.getOriginalFilename();
         if (fileNameWithExt == null)
             throw new RuntimeException("Nombre de archivo nulo");
@@ -44,7 +48,7 @@ public class FileStorageService {
                 extension = originalFileName.substring(i);
             }
 
-            String fileName = UUID.randomUUID().toString() + extension;
+            String fileName = preferredFileName + extension;
 
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);

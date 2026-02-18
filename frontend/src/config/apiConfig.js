@@ -7,5 +7,7 @@ const getApiBaseUrl = () => {
 };
 
 const API_BASE_URL = getApiBaseUrl();
+const UPLOADS_URL = `http://${window.location.hostname}:8080/uploads`;
 
+export { API_BASE_URL, UPLOADS_URL };
 export default API_BASE_URL;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import computerService from '../../services/computerService';
-import maintenanceService from '../../services/maintenanceService';
+import { UPLOADS_URL } from '../../config/apiConfig';
 
 const ComputerMaintenances = () => {
     const [computers, setComputers] = useState([]);
@@ -205,7 +205,7 @@ const ComputerMaintenances = () => {
                                                 <td className="px-6 py-4 text-center">
                                                     {m.attachmentPath ? (
                                                         <a
-                                                            href={`http://localhost:8080/uploads/${m.attachmentPath}`}
+                                                            href={`${UPLOADS_URL}/${m.attachmentPath}`}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                             className="text-lg hover:scale-125 transition-transform inline-block"
