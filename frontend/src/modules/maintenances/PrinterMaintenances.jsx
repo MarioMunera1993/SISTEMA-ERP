@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import printerService from '../../services/printerService';
+import maintenanceService from '../../services/maintenanceService';
 import { UPLOADS_URL } from '../../config/apiConfig';
 
 const PrinterMaintenances = () => {
