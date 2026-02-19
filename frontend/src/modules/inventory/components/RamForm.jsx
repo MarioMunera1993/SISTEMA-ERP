@@ -52,9 +52,9 @@ const RamForm = ({ onSave, editingRam, onCancel }) => {
                 >
                     <option value="">Tipo...</option>
                     <option value="DDR3">DDR3</option>
+                    <option value="DDR3L">DDR3L</option>
                     <option value="DDR4">DDR4</option>
                     <option value="DDR5">DDR5</option>
-                    <option value="LPDDR4">LPDDR4</option>
                 </select>
                 <input
                     type="text" placeholder="Velocidad (ej: 3200MHz)"

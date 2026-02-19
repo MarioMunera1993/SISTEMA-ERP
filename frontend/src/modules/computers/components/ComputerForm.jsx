@@ -198,13 +198,12 @@ const ComputerForm = ({ onSave, editingComputer, onCancel, types, statuses, bran
                     required
                 >
                     <option value="">Sistema Operativo...</option>
-                    <option value="WINDOWS 11">WINDOWS 11</option>
-                    <option value="WINDOWS 10">WINDOWS 10</option>
-                    <option value="WINDOWS 8.1">WINDOWS 8.1</option>
-                    <option value="WINDOWS 7">WINDOWS 7</option>
+                    <option value="WINDOWS 11 PRO">WINDOWS 11 PRO</option>
+                    <option value="WINDOWS 10 PRO">WINDOWS 10 PRO</option>
+                    <option value="WINDOWS 8.1 PRO">WINDOWS 8.1 PRO</option>
+                    <option value="WINDOWS 7 PRO">WINDOWS 7 PRO</option>
                     <option value="LINUX">LINUX</option>
                     <option value="MAC OS">MAC OS</option>
-                    <option value="ETC">ETC / OTRO</option>
                 </select>
             </div>
 
