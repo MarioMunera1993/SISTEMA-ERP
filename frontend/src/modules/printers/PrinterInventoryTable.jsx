@@ -70,6 +70,7 @@ const PrinterInventoryTable = () => {
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Marca/Modelo</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Serie</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Sede</th>
+                                <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">IP</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Responsable</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Consumible</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400 text-center">Estado</th>
@@ -87,6 +88,9 @@ const PrinterInventoryTable = () => {
                                     <td className="px-4 py-4 text-xs font-bold text-gray-600 uppercase">
                                         {p.branch?.name || "N/A"}
                                     </td>
+                                    <td className="px-4 py-4 text-xs font-black text-blue-600 font-mono">
+                                        {p.ip || "---"}
+                                    </td>
                                     <td className="px-4 py-4 text-xs font-black text-gray-800 uppercase">
                                         {p.responsiblePerson || "---"}
                                     </td>
@@ -94,8 +98,8 @@ const PrinterInventoryTable = () => {
                                         {p.consumable || "N/A"}
                                     </td>
                                     <td className="px-4 py-4 text-center">
-                                        <span className={`text-[10px] font-black px-2 py-1 rounded-full uppercase border ${p.status?.name === 'En Uso' ? 'bg-green-100 text-green-700 border-green-200' :
-                                            p.status?.name === 'Dañado' ? 'bg-red-100 text-red-700 border-red-200' :
+                                        <span className={`text-[10px] font-black px-2 py-1 rounded-full uppercase border ${p.status?.name === 'Activo' || p.status?.name === 'En Uso' ? 'bg-green-100 text-green-700 border-green-200' :
+                                            p.status?.name === 'Dañado' || p.status?.name === 'Inactivo' ? 'bg-red-100 text-red-700 border-red-200' :
                                                 'bg-gray-100 text-gray-600 border-gray-200'
                                             }`}>
                                             {p.status?.name || "Sin estado"}

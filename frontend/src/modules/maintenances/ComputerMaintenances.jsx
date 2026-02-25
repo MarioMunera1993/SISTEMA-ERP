@@ -10,6 +10,7 @@ const ComputerMaintenances = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [historySearchTerm, setHistorySearchTerm] = useState("");
     const [loading, setLoading] = useState(false);
+    const [editingId, setEditingId] = useState(null);
 
     const [formData, setFormData] = useState({
         maintenanceDate: new Date().toISOString().split('T')[0],
@@ -43,15 +44,46 @@ const ComputerMaintenances = () => {
                 ...formData,
                 computer: { id: selectedComputer.id }
             };
-            await maintenanceService.saveComputerMaintenance(maintenanceData, selectedFile);
+
+            if (editingId) {
+                await maintenanceService.updateComputerMaintenance(editingId, maintenanceData, selectedFile);
+                alert("Mantenimiento actualizado con éxito.");
+            } else {
+                await maintenanceService.saveComputerMaintenance(maintenanceData, selectedFile);
+                alert("Mantenimiento guardado con éxito.");
+            }
+
             setFormData({ maintenanceDate: new Date().toISOString().split('T')[0], observations: '' });
             setSelectedFile(null);
             setSelectedComputer(null);
+            setEditingId(null);
             loadAllMaintenances();
-            alert("Mantenimiento guardado con éxito.");
         } catch (error) {
             console.error(error);
-            alert("Error al guardar mantenimiento.");
+            alert("Error al procesar mantenimiento.");
+        }
+    };
+
+    const handleEdit = (m) => {
+        setEditingId(m.id);
+        setSelectedComputer(m.computer);
+        setFormData({
+            maintenanceDate: m.maintenanceDate,
+            observations: m.observations
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleDelete = async (id) => {
+        if (window.confirm("¿Está seguro de eliminar este registro de mantenimiento?")) {
+            try {
+                await maintenanceService.deleteComputerMaintenance(id);
+                loadAllMaintenances();
+                alert("Mantenimiento eliminado.");
+            } catch (error) {
+                console.error(error);
+                alert("Error al eliminar.");
+            }
         }
     };
 
@@ -81,7 +113,9 @@ const ComputerMaintenances = () => {
                 {/* Panel de Registro */}
                 <div className="lg:col-span-1 space-y-6">
                     <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
-                        <h3 className="text-xl font-bold text-gray-800 mb-6">⚙️ Registrar Mantenimiento</h3>
+                        <h3 className="text-xl font-bold text-gray-800 mb-6">
+                            {editingId ? '✏️ Editar Mantenimiento' : '⚙️ Registrar Mantenimiento'}
+                        </h3>
 
                         <div className="mb-4">
                             <label className="text-[10px] font-black text-gray-400 uppercase ml-1 mb-1 block">1. Buscar Equipo</label>
@@ -150,8 +184,21 @@ const ComputerMaintenances = () => {
                                 disabled={!selectedComputer}
                                 className="w-full bg-blue-600 text-white p-4 rounded-2xl font-black shadow-lg shadow-blue-200 hover:bg-blue-700 disabled:bg-gray-200 disabled:shadow-none transition-all uppercase tracking-wide flex items-center justify-center gap-2"
                             >
-                                💾 GUARDAR MANTENIMIENTO
+                                {editingId ? '💾 ACTUALIZAR REGISTRO' : '💾 GUARDAR MANTENIMIENTO'}
                             </button>
+                            {editingId && (
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setEditingId(null);
+                                        setSelectedComputer(null);
+                                        setFormData({ maintenanceDate: new Date().toISOString().split('T')[0], observations: '' });
+                                    }}
+                                    className="w-full mt-2 text-gray-400 font-bold hover:text-gray-600 transition-colors uppercase text-xs"
+                                >
+                                    Cancelar Edición
+                                </button>
+                            )}
                         </form>
                     </div>
                 </div>
@@ -186,6 +233,7 @@ const ComputerMaintenances = () => {
                                             <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Equipo</th>
                                             <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Observaciones</th>
                                             <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Adjunto</th>
+                                            <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-50">
@@ -217,6 +265,24 @@ const ComputerMaintenances = () => {
                                                     ) : (
                                                         <span className="text-[10px] text-gray-300 italic">Sin archivo</span>
                                                     )}
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <div className="flex items-center justify-center gap-2">
+                                                        <button
+                                                            onClick={() => handleEdit(m)}
+                                                            className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all text-xs"
+                                                            title="Editar"
+                                                        >
+                                                            ✏️
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleDelete(m.id)}
+                                                            className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all text-xs"
+                                                            title="Eliminar"
+                                                        >
+                                                            🗑️
+                                                        </button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ))}

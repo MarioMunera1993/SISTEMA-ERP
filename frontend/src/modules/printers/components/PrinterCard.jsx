@@ -19,9 +19,9 @@ const PrinterCard = ({ printer, onEdit, onDelete, types, statuses, branches }) =
 
     return (
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group relative overflow-hidden">
-            {/* INDICADOR DE COLOR */}
+            {/* INDICADOR DE COLOR Y NÚMERO */}
             <div className={`absolute top-0 left-0 px-3 py-1 text-[9px] font-black uppercase tracking-tighter rounded-br-xl shadow-sm ${printer.isColor ? 'bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white' : 'bg-gray-800 text-white'}`}>
-                {printer.isColor ? '🎨 Color' : '🏁 B/N'}
+                {printer.isColor ? '🎨' : '🏁'} Nº IMPRESORA: {printer.printerNumber}
             </div>
 
             {/* BOTONES DE ACCIÓN */}

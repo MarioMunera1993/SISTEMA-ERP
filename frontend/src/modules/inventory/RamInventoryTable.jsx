@@ -96,9 +96,9 @@ const RamInventoryTable = () => {
                                         {r.serialNumber}
                                     </td>
                                     <td className="px-4 py-4">
-                                        {r.computerId ? (
+                                        {r.teamNumber ? (
                                             <span className="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-1 rounded-lg">
-                                                ID EQUIPO: {r.computerId}
+                                                💻 {r.teamNumber}
                                             </span>
                                         ) : (
                                             <span className="text-[10px] text-gray-400 italic">No asociado</span>
@@ -108,8 +108,12 @@ const RamInventoryTable = () => {
                                         {r.observations || "---"}
                                     </td>
                                     <td className="px-4 py-4 text-center">
-                                        <span className={`text-[10px] font-black px-2 py-1 rounded-full uppercase border ${r.isActive ? 'bg-green-100 text-green-700 border-green-200' : 'bg-red-100 text-red-700 border-red-200'}`}>
-                                            {r.isActive ? 'Activo' : 'Inactivo'}
+                                        <span className={`text-[10px] font-black px-2 py-1 rounded-full uppercase border ${r.componentStatus === 'ACTIVO' || r.componentStatus === 'EN USO' ? 'bg-green-100 text-green-700 border-green-200' :
+                                                r.componentStatus === 'EN BODEGA' ? 'bg-blue-100 text-blue-700 border-blue-200' :
+                                                    r.componentStatus === 'DAÑADO' || r.componentStatus === 'INACTIVO' ? 'bg-red-100 text-red-700 border-red-200' :
+                                                        'bg-gray-100 text-gray-600 border-gray-200'
+                                            }`}>
+                                            {r.componentStatus || (r.isActive ? 'Activo' : 'Inactivo')}
                                         </span>
                                     </td>
                                 </tr>

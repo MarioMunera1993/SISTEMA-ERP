@@ -20,7 +20,12 @@ const PrinterForm = ({ onSave, editingPrinter, onCancel, types, statuses, branch
 
     useEffect(() => {
         if (editingPrinter) {
-            setFormData(editingPrinter);
+            setFormData({
+                ...editingPrinter,
+                typeId: editingPrinter.type?.id || '',
+                statusId: editingPrinter.status?.id || '',
+                branchId: editingPrinter.branch?.id || ''
+            });
         } else {
             setFormData(initialFormState);
         }
@@ -28,7 +33,18 @@ const PrinterForm = ({ onSave, editingPrinter, onCancel, types, statuses, branch
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await onSave(formData);
+
+        // Limpiamos los datos para el backend
+        const { typeId, statusId, branchId, ...cleanData } = formData;
+
+        const dataToSave = {
+            ...cleanData,
+            type: typeId ? { id: parseInt(typeId) } : null,
+            status: statusId ? { id: parseInt(statusId) } : null,
+            branch: branchId ? { id: parseInt(branchId) } : null
+        };
+
+        await onSave(dataToSave);
         // Solo reseteamos si no estábamos editando (para permitir crear otra nueva)
         if (!editingPrinter) {
             setFormData(initialFormState);

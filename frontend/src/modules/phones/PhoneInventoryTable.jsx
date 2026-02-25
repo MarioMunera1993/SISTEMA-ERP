@@ -73,7 +73,6 @@ const PhoneInventoryTable = () => {
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Responsable</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Sede</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Modificado Por</th>
-                                <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400">Última Modif.</th>
                                 <th className="px-4 py-3 text-[10px] font-black uppercase text-gray-400 text-center">Estado</th>
                             </tr>
                         </thead>
@@ -89,7 +88,7 @@ const PhoneInventoryTable = () => {
                                     <td className="px-4 py-4 text-xs font-black text-gray-700">
                                         {p.extension || '---'}
                                     </td>
-                                    <td className="px-4 py-4 text-xs font-mono text-gray-500">
+                                    <td className="px-4 py-4 text-sm font-black text-blue-600">
                                         {p.ipAddress || '---'}
                                     </td>
                                     <td className="px-4 py-4 text-xs font-bold text-gray-800 uppercase">
@@ -105,13 +104,10 @@ const PhoneInventoryTable = () => {
                                             </span>
                                         </div>
                                     </td>
-                                    <td className="px-4 py-4 text-[10px] text-gray-400 font-medium">
-                                        {p.updateDate ? new Date(p.updateDate).toLocaleString() : '---'}
-                                    </td>
                                     <td className="px-4 py-4 text-center">
                                         <span className={`text-[10px] font-black px-2 py-1 rounded-full uppercase border ${p.status?.name === 'En Uso' ? 'bg-green-100 text-green-700 border-green-200' :
-                                                p.status?.name === 'Dañado' ? 'bg-red-100 text-red-700 border-red-200' :
-                                                    'bg-gray-100 text-gray-600 border-gray-200'
+                                            p.status?.name === 'Dañado' ? 'bg-red-100 text-red-700 border-red-200' :
+                                                'bg-gray-100 text-gray-600 border-gray-200'
                                             }`}>
                                             {p.status?.name || 'Sin estado'}
                                         </span>

@@ -72,6 +72,33 @@ public class PrinterMaintenanceController {
         }
     }
 
+    @PutMapping(value = "/{id}", consumes = { "multipart/form-data" })
+    public ResponseEntity<?> updateMaintenance(
+            @PathVariable Long id,
+            @RequestParam("maintenance") String maintenanceJson,
+            @RequestParam(value = "file", required = false) MultipartFile file) {
+        try {
+            PrinterMaintenance existingMaintenance = maintenanceRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Mantenimiento no encontrado"));
+
+            PrinterMaintenance updatedData = objectMapper.readValue(maintenanceJson, PrinterMaintenance.class);
+
+            existingMaintenance.setMaintenanceDate(updatedData.getMaintenanceDate());
+            existingMaintenance.setObservations(updatedData.getObservations());
+
+            if (file != null && !file.isEmpty()) {
+                String dateStr = updatedData.getMaintenanceDate().format(DateTimeFormatter.ofPattern("ddMMyyyy"));
+                String preferredFileName = existingMaintenance.getPrinter().getPrinterNumber() + "-" + dateStr;
+                String fileName = fileStorageService.storeFile(file, preferredFileName);
+                existingMaintenance.setAttachmentPath(fileName);
+            }
+
+            return ResponseEntity.ok(maintenanceRepository.save(existingMaintenance));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Error al actualizar el mantenimiento: " + e.getMessage());
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMaintenance(@PathVariable Long id) {
         maintenanceRepository.deleteById(id);

@@ -26,6 +26,19 @@ const saveComputerMaintenance = (maintenanceData, file) => {
         }
     });
 };
+const updateComputerMaintenance = (id, maintenanceData, file) => {
+    const formData = new FormData();
+    formData.append('maintenance', JSON.stringify(maintenanceData));
+    if (file) {
+        formData.append('file', file);
+    }
+    return axios.put(`${API_BASE_URL}/computer-maintenances/${id}`, formData, {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+};
 const deleteComputerMaintenance = (id) => axios.delete(`${API_BASE_URL}/computer-maintenances/${id}`, { headers: authHeader() });
 
 // Mantenimientos de Impresoras
@@ -44,15 +57,30 @@ const savePrinterMaintenance = (maintenanceData, file) => {
         }
     });
 };
+const updatePrinterMaintenance = (id, maintenanceData, file) => {
+    const formData = new FormData();
+    formData.append('maintenance', JSON.stringify(maintenanceData));
+    if (file) {
+        formData.append('file', file);
+    }
+    return axios.put(`${API_BASE_URL}/printer-maintenances/${id}`, formData, {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+};
 const deletePrinterMaintenance = (id) => axios.delete(`${API_BASE_URL}/printer-maintenances/${id}`, { headers: authHeader() });
 
 export default {
     getComputerMaintenances,
     getMaintenancesByComputer,
     saveComputerMaintenance,
+    updateComputerMaintenance,
     deleteComputerMaintenance,
     getPrinterMaintenances,
     getMaintenancesByPrinter,
     savePrinterMaintenance,
+    updatePrinterMaintenance,
     deletePrinterMaintenance
 };

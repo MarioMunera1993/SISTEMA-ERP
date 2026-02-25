@@ -92,9 +92,9 @@ const StorageInventoryTable = () => {
                                         {s.serialNumber}
                                     </td>
                                     <td className="px-4 py-4">
-                                        {s.computerId ? (
+                                        {s.teamNumber ? (
                                             <span className="bg-purple-100 text-purple-700 text-[10px] font-black px-2 py-1 rounded-lg">
-                                                ID EQUIPO: {s.computerId}
+                                                💻 {s.teamNumber}
                                             </span>
                                         ) : (
                                             <span className="text-[10px] text-gray-400 italic">No asociado</span>
@@ -104,8 +104,12 @@ const StorageInventoryTable = () => {
                                         {s.observations || "---"}
                                     </td>
                                     <td className="px-4 py-4 text-center">
-                                        <span className={`text-[10px] font-black px-2 py-1 rounded-full uppercase border ${s.isActive ? 'bg-green-100 text-green-700 border-green-200' : 'bg-red-100 text-red-700 border-red-200'}`}>
-                                            {s.isActive ? 'Activo' : 'Inactivo'}
+                                        <span className={`text-[10px] font-black px-2 py-1 rounded-full uppercase border ${s.componentStatus === 'ACTIVO' || s.componentStatus === 'EN USO' ? 'bg-green-100 text-green-700 border-green-200' :
+                                                s.componentStatus === 'EN BODEGA' ? 'bg-blue-100 text-blue-700 border-blue-200' :
+                                                    s.componentStatus === 'DAÑADO' || s.componentStatus === 'INACTIVO' ? 'bg-red-100 text-red-700 border-red-200' :
+                                                        'bg-gray-100 text-gray-600 border-gray-200'
+                                            }`}>
+                                            {s.componentStatus || (s.isActive ? 'Activo' : 'Inactivo')}
                                         </span>
                                     </td>
                                 </tr>

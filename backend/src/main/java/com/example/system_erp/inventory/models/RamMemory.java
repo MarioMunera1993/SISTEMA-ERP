@@ -43,6 +43,18 @@ public class RamMemory {
         return computer != null ? computer.getId() : null;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("teamNumber")
+    public String getTeamNumber() {
+        return (computer != null) ? computer.getTeamNumber() : null;
+    }
+
+    @com.fasterxml.jackson.annotation.JsonProperty("componentStatus")
+    public String getComponentStatus() {
+        if (computer == null)
+            return "EN BODEGA";
+        return (computer.getStatus() != null) ? computer.getStatus().getName().toUpperCase() : "SIN ESTADO";
+    }
+
     @Column(name = "is_active")
     private boolean isActive = true;
 

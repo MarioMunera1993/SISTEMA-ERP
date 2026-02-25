@@ -1,5 +1,9 @@
 package com.example.system_erp.printers.models;
 
+import com.example.system_erp.catalogs.models.Branch;
+import com.example.system_erp.catalogs.models.EquipmentStatus;
+import com.example.system_erp.catalogs.models.EquipmentType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -7,7 +11,7 @@ import java.time.LocalDate;
 @Entity // Esto le dice a Java que esta clase es una tabla de base de datos
 @Table(name = "printers") // Le indica el nombre exacto de la tabla en MySQL
 @Data // Esta es la "magia" de Lombok que crea los Getters y Setters automáticamente
-
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Printer {
 
     @Id
@@ -28,14 +32,16 @@ public class Printer {
     @Column(name = "serial_number", unique = true, nullable = false)
     private String serialNumber; // numeroSerie
 
-    @Column(name = "type_id")
-    private Integer typeId; // idTipo
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "type_id")
+    private EquipmentType type; // idTipo
 
     @Column(name = "is_color")
     private Boolean isColor; // esColor
 
-    @Column(name = "branch_id")
-    private Integer branchId; // idSede (Sede -> Branch o Location)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "branch_id")
+    private Branch branch; // idSede (Sede -> Branch o Location)
 
     @Column(name = "responsible_person", nullable = false)
     private String responsiblePerson; // personaEncargada
@@ -52,7 +58,8 @@ public class Printer {
     @Column(name = "updated_at")
     private LocalDate updatedAt; // fechaActualizacion (Estándar: updated_at)
 
-    @Column(name = "status_id")
-    private Integer statusId; // idEstado
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id")
+    private EquipmentStatus status; // idEstado
 
 }
